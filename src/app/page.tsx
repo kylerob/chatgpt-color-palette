@@ -26,23 +26,23 @@ export default function Home() {
       apiKey: apiKey,
     });
     const openapi = new OpenAIApi(config);
-    const response = await openapi.createChatCompletion({
-      model: 'gpt-3.5-turbo-16k',
-      messages: [
-        {
-          role: 'user',
-          content: `What are the hex color codes for ${companyName}'s logo in just a single-line JavaScript array with no other explanations or variable name?`,
-        },
-      ],
-    });
-    setLoading(false);
-
-    const unparsedColors = response.data.choices[0].message?.content?.replaceAll(`'`, `"`);
     try {
+      const response = await openapi.createChatCompletion({
+        model: 'gpt-3.5-turbo-16k',
+        messages: [
+          {
+            role: 'user',
+            content: `What are the hex color codes for ${companyName}'s logo in just a single-line JavaScript array with no other explanations or variable name?`,
+          },
+        ],
+      });
+
+      const unparsedColors = response.data.choices[0].message?.content?.replaceAll(`'`, `"`);
       const parsedColors = JSON.parse(unparsedColors ?? '');
       // remove duplicates
       setColors(Array.from(new Set(parsedColors)));
     } catch (error) {
+      setLoading(false);
       console.log('Unable to parse that company response');
     }
   };
