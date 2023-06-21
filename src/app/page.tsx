@@ -76,7 +76,7 @@ export default function Home() {
         </div>
       </div>
       <div
-        className="grid grid-cols-4 justify-between w-screen h-screen"
+        className="grid justify-between w-screen h-screen"
         style={{ gridTemplateColumns: `repeat(${colors.length}, minmax(0, 1fr))` }}
       >
         {colors.map((color) => (
