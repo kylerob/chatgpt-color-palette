@@ -1,3 +1,5 @@
+// credit to https://codepen.io/jkantner/pen/BaPaoGm
+
 export function LoadingIndicator() {
   return (
     <div className="tower-container">
