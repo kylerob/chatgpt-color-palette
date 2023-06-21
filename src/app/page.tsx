@@ -4,6 +4,7 @@ import React, { Fragment, useState } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { Configuration, OpenAIApi } from 'openai';
+import { LoadingIndicator } from '@/components/LoadingIndicator';
 
 export default function Home() {
   const [orgId, setOrgId] = useState('');
@@ -76,39 +77,37 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div
-        className="grid justify-between w-screen h-screen"
-        style={{ gridTemplateColumns: `repeat(${colors.length}, minmax(0, 1fr))` }}
-      >
-        {colors.map((color) => (
-          <div
-            className="h-screen flex justify-center items-center"
-            style={{ backgroundColor: color }}
-            key={color}
-          >
-            <div className="flex items-center px-4 py-2 bg-slate-800 bg-opacity-50 cursor-pointer rotate-90 md:rotate-0">
-              {/* <!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --> */}
-              <svg
-                className="mr-3 fill-gray-100"
-                xmlns="http://www.w3.org/2000/svg"
-                height="1em"
-                viewBox="0 0 384 512"
-              >
-                <path d="M192 0c-41.8 0-77.4 26.7-90.5 64H64C28.7 64 0 92.7 0 128V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H282.5C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM112 192H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
-              </svg>
-              <span className="text-white">{color}</span>
+      {loading ? (
+        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <LoadingIndicator />
+        </div>
+      ) : (
+        <div
+          className="grid justify-between w-screen h-screen"
+          style={{ gridTemplateColumns: `repeat(${colors.length}, minmax(0, 1fr))` }}
+        >
+          {colors.map((color) => (
+            <div
+              className="h-screen flex justify-center items-center"
+              style={{ backgroundColor: color }}
+              key={color}
+            >
+              <div className="flex items-center px-4 py-2 bg-slate-800 bg-opacity-50 cursor-pointer rotate-90 md:rotate-0">
+                {/* <!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --> */}
+                <svg
+                  className="mr-3 fill-gray-100"
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="1em"
+                  viewBox="0 0 384 512"
+                >
+                  <path d="M192 0c-41.8 0-77.4 26.7-90.5 64H64C28.7 64 0 92.7 0 128V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H282.5C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM112 192H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
+                </svg>
+                <span className="text-white">{color}</span>
+              </div>
             </div>
-          </div>
-        ))}
-        {/* <form>
-        <input type="text" onChange={e => handleChange(e.target.value)} value={prompt} placeholder="Enter your prompt" />
-        <button onClick={callChatGPT}>Submit</button>
-      </form> */}
-        {/* {loading ? 
-        (<div>loading</div>) :
-        (<div>{response}</div>)
-      } */}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
