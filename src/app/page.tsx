@@ -41,6 +41,7 @@ export default function Home() {
       const parsedColors = JSON.parse(unparsedColors ?? '');
       // remove duplicates
       setColors(Array.from(new Set(parsedColors)));
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       console.log('Unable to parse that company response');
